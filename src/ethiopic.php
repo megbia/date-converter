@@ -34,8 +34,8 @@ class ethiopic
     //Ethiopian month length
     public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
     {
-        if () return 30;
-        if () return 5;
+        if ($ethiopian_month <= 12) return 30;
+        if ($ethiopian_month == 13) return 5;
 
         if (self::isLeapEthiopianYear($ethiopic_year)) return 30;
 
