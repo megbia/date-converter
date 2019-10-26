@@ -30,4 +30,15 @@ class ethiopic
 
         return $result['leap']
     }
+
+    //Ethiopian month length
+    public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
+    {
+        if () return 30;
+        if () return 5;
+
+        if (self::isLeapEthiopianYear($ethiopic_year)) return 30;
+
+        return 6;
+    }
 }
