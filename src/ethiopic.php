@@ -6,6 +6,16 @@ namespace megbia;
 
 class ethiopic
 {
+    const JULIAN_DATE_OFFSET = 1723856;
+
+    const MONTH_NAMES = [
+        'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 'ጥር', 'የካቲት','መጋቢት', 'ሚያዝያ', 'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜን',
+    ];
+
+    const WEEK_NAMES = [
+        'ሰኞ', 'ማክሰኞ', 'ረቡዕ', 'ሓሙስ', 'ዓርብ', 'ቅዳሜ', 'እሑድ'
+    ];
+    
 //    Convert Gregorian to Ethiopic
     public function toEthiopic($gregorian_year,$gregorian_month,$gregorian_day){
         return self::julianToEthiopic(self::gregorianToJulian($gregorian_year,$gregorian_month,$gregorian_day));
