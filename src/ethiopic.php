@@ -4,44 +4,27 @@
 namespace megbia;
 
 
-class ethiopic
+class Ethiopic
 {
     const JULIAN_DATE_OFFSET = 1723856;
 
     const MONTH_NAMES = [
         'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 'ጥር', 'የካቲት','መጋቢት', 'ሚያዝያ', 'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜን',
     ];
-
-    const WEEK_NAMES = [
-        'ሰኞ', 'ማክሰኞ', 'ረቡዕ', 'ሓሙስ', 'ዓርብ', 'ቅዳሜ', 'እሑድ'
-    ];
-    
-//    Convert Gregorian to Ethiopic
-    public function toEthiopic($gregorian_year,$gregorian_month,$gregorian_day){
-        return self::julianToEthiopic(self::gregorianToJulian($gregorian_year,$gregorian_month,$gregorian_day));
-    }
-
-    //Convert Ethiopic to gregorain
-    public function toGregorian($ethiopic_year,$ethiopic_month,$ethiopic_day){
-        return self::julianToGregorian(self::ethiopicToJulian($ethiopic_year,$ethiopic_month,$ethiopic_day));
-    }
+$ethiopic_year = 2008
+$ethiopic_month = 3;
+$ethiopic_day = 12;
 
     //Checks whether ET Date is valid or not.
     public function isValidEthiopianDate($ethiopic_year,$ethiopic_month,$ethiopic_day){
+
         $yearIsValid = ($ethiopic_year >= 1 && $ethiopic_year <= 3000);
         $monthIsValid = ($ethiopic_month >= 1 && $ethiopic_month <= 13);
         $dayIsValid = ($ethiopic_day >= 1 && $ethiopic_day <= self::ethiopianMonthLength($ethiopic_year, $ethiopic_month));
 
         return $yearIsValid && $monthIsValid && $dayIsValid;
     }
-    //Check Gregorian Leap year or nt
-    public function isLeapEthiopianYear($ethiopic_year){
-        $result = self::ethiopicCalender($ethiopic_year);
 
-        return $result['leap']
-    }
-
-    //Ethiopian month length
     public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
     {
         if ($ethiopian_month <= 12) return 30;
@@ -52,29 +35,38 @@ class ethiopic
         return 6;
     }
 
-    //Ethiopian year Leap Year or Not
-    public function ethiopianCalender($ethiopic_year){
-        return ;
-    }
+// isLeapEthiopianYear
 
-    //Converts Ethiopian calendar to Julian Day Number
-    public function ethiopicToJulian($ethiopic_year,$ethiopic_month,$ethiopic_day){
-        return ;
-    }
+    public function gregorianToEthiopic($gregorian_year,$gregorian_month,$gregorian_day){
 
-    //Converts Julian Day to ethiopian date.
-    public function julianToEthiopic($jdn){
-        return ;
-    }
+        $julianDate = gregoriantojd($gregorian_month, $gregorian_day, $gregorian_year);
 
-    //Julian day count from gregorian
-    public function gregorianToJulian($gregorian_year,$gregorian_month,$gregorian_day){
-        return ;
+        $r = self::mod(($julianDate - self::JULIAN_DATE_OFFSET), 1461)
+        $n = self::mod($r, 365) + (365 * self::div($r,1460)) ;
+
+        // year
+        $ethiopian_year = 4 * self::div( ($julianDate - self::JULIAN_DATE_OFFSET) , 1461 ) + self::div($r, 365)  - self::div($r, 1460);
+        // month
+        $ethiopian_month = self::div($n, 30) + 1;
+        // day
+        $ethiopian_day = self::mod($n, 30) + 1;
+
+        $result = self::MONTH_NAMES[$ethiopian_month - 1] ." ".$ethiopian_day." ".$ethiopian_year;
+        
+        return $result;
+
     }
 
     //Gregorian from Julian Day
-    public function julianToGregorian($jdn){
-        return ;
+    public function ethiopicToGregorian($ethiopic_year,$ethiopic_month,$ethiopic_day){
+
+        $n = 30 * ($ethiopian_month - 1 ) + ($ethiopian_day - 1); 
+
+        $j = (self::JULIAN_DATE_OFFSET + 365) + 365 * ($ethiopian_year - 1) + self::div ($ethiopian_year , 4) + $n;
+
+        $result = jdtogregorian($j);
+
+        return $result;
     }
 
     //Division Function
