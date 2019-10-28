@@ -64,6 +64,14 @@ class Ethiopic
 
         $result = jdtogregorian($j);
 
+        $juilianDate = explode('/', $julianDayCount);
+
+        $gregorian_month = $juilianDate[0];
+        $gregorian_day   = $juilianDate[1];
+        $gregorian_year  = $juilianDate[2];
+
+        $result = self::GREGORIAN_MONTH_NAMES[$gregorian_month - 1] ." ".$gregorian_day." ".$gregorian_year;
+
         return $result;
     }
 

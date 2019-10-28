@@ -7,6 +7,7 @@ require_once '/src/ethiopic.php';
 
 class ethiopicTest extends \PHPUnit_Framework_TestCase
 {
+	//Test if given is valid Ethiopian Date
     public testIsValidEthiopianDate(){
 
     }
