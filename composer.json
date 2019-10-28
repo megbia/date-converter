@@ -1,5 +1,14 @@
 {
-    "require": {
-        "nesbot/carbon": "^2.25"
-    }
+    "name": "megbia/date-convertor",
+    "description": "Date Convertor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kalkidan",
+            "email": "kalkidan@2merkato.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
 }

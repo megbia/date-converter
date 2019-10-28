@@ -1,6 +1,6 @@
 <?php
 
-namespace megbia;
+namespace megbia\tests;
 
 //use ethiopic.php;
 require_once '/src/ethiopic.php';
@@ -8,7 +8,7 @@ require_once '/src/ethiopic.php';
 class ethiopicTest extends \PHPUnit_Framework_TestCase
 {
     public testIsValidEthiopianDate(){
-    	
+
     }
 
     public testToEthiopian(){
@@ -16,7 +16,7 @@ class ethiopicTest extends \PHPUnit_Framework_TestCase
     	$this->assertEquals(array(
     		'ethiopic_year' => 1991,
     	 	'ethiopic_month' => 4, 
-    	 	'ethiopic_day' => 23), \Ethiopic\Ethiopic::gregorianToEthiopic(2015, 10, 10));
+    	 	'ethiopic_day' => 23), \Ethiopic\Ethiopic::gregorianToEthiopic(1999, 1, 1));
     }
 
     public testToGregorian(){

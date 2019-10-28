@@ -1,8 +1,7 @@
 <?php
 
-
-namespace megbia;
-
+namespace megbia\src;
+require_once '/validation/ethiopicValidation.php';
 
 class Ethiopic
 {
@@ -11,19 +10,13 @@ class Ethiopic
     const MONTH_NAMES = [
         'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 'ጥር', 'የካቲት','መጋቢት', 'ሚያዝያ', 'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜን',
     ];
-$ethiopic_year = 2008
-$ethiopic_month = 3;
-$ethiopic_day = 12;
+
+    // $ethiopic_year = 2008
+    // $ethiopic_month = 3;
+    // $ethiopic_day = 12;
 
     //Checks whether ET Date is valid or not.
-    public function isValidEthiopianDate($ethiopic_year,$ethiopic_month,$ethiopic_day){
 
-        $yearIsValid = ($ethiopic_year >= 1 && $ethiopic_year <= 3000);
-        $monthIsValid = ($ethiopic_month >= 1 && $ethiopic_month <= 13);
-        $dayIsValid = ($ethiopic_day >= 1 && $ethiopic_day <= self::ethiopianMonthLength($ethiopic_year, $ethiopic_month));
-
-        return $yearIsValid && $monthIsValid && $dayIsValid;
-    }
 
     public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
     {
@@ -37,6 +30,11 @@ $ethiopic_day = 12;
 
 // isLeapEthiopianYear
 
+    // public function isLeapEthiopianYear($value='')
+    // {
+    //     # code...
+    // }
+
     public function gregorianToEthiopic($gregorian_year,$gregorian_month,$gregorian_day){
 
         $julianDate = gregoriantojd($gregorian_month, $gregorian_day, $gregorian_year);
@@ -45,7 +43,7 @@ $ethiopic_day = 12;
         $n = self::mod($r, 365) + (365 * self::div($r,1460)) ;
 
         // year
-        $ethiopian_year = 4 * self::div( ($julianDate - self::JULIAN_DATE_OFFSET) , 1461 ) + self::div($r, 365)  - self::div($r, 1460);
+        $ethiopian_year = 4 * self::div(($julianDate - self::JULIAN_DATE_OFFSET) , 1461 ) + self::div($r, 365)  - self::div($r, 1460);
         // month
         $ethiopian_month = self::div($n, 30) + 1;
         // day
@@ -76,6 +74,6 @@ $ethiopic_day = 12;
 
     //Modulo Function
     private function mod($first, $second){
-        return floor($first % $second);
+        return ($first % $second);
     }
 }
