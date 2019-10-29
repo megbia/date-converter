@@ -6,16 +6,18 @@ Base Ethiopic class has 3 methods defined inside megbia namespace, so no need fo
 
 ## Basic Usage
 
-You can convert Gregorian to Ethiopian date from a given Ethiopian Date
+You can convert Gregorian to Ethiopian date from a given gregorian date
 
 ```php
-\megbia\Ethiopic::gregorianToEthiopic(1999, 1, 1)
+//ጥቅምት 18 2012
+\megbia\Ethiopic::gregorianToEthiopic(2019,10,29)
 ```
 
-You can convert Ethiopian date to gregorian date from a given Gregorian Date
+You can convert Ethiopian date to gregorian date from a given ethiopian date
 
 ```php
-\megbia\Ethiopic::ethiopicToGregorian(1999, 1, 1)
+//October 29 2019
+\megbia\Ethiopic::ethiopicToGregorian(2012,2,18)
 ```
 
 ### Methods :
