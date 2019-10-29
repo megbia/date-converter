@@ -12,7 +12,7 @@ You can convert Gregorian to Ethiopian date from a given Ethiopian Date
 \megbia\Ethiopic::gregorianToEthiopic(1999, 1, 1)
 ```
 
-You can convert Ethiopian date to gregorian date from a given Ethiopia Date
+You can convert Ethiopian date to gregorian date from a given Gregorian Date
 
 ```php
 \megbia\Ethiopic::ethiopicToGregorian(1999, 1, 1)
