@@ -1,7 +1,8 @@
 <?php
 
 namespace megbia\src;
-require_once '/validation/ethiopicValidation.php';
+// require_once '/validation/ethiopicValidation.php';
+// use '/dateValidation.php';
 
 class Ethiopic
 {
@@ -11,13 +12,11 @@ class Ethiopic
         'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 'ጥር', 'የካቲት','መጋቢት', 'ሚያዝያ', 'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜን',
     ];
 
-    // $ethiopic_year = 2008
-    // $ethiopic_month = 3;
-    // $ethiopic_day = 12;
+    const GREGORIAN_MONTH_NAMES = [
+        'January', 'February', 'March', 'April', 'May', 'June','July', '    August', 'September', 'October', '  November', 'December', 
+    ];
 
     //Checks whether ET Date is valid or not.
-
-
     public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
     {
         if ($ethiopian_month <= 12) return 30;
@@ -35,15 +34,14 @@ class Ethiopic
     //     # code...
     // }
 
-    public function gregorianToEthiopic($gregorian_year,$gregorian_month,$gregorian_day){
+    public function gregorianToEthiopic($year,$month,$day){
 
-        $julianDate = gregoriantojd($gregorian_month, $gregorian_day, $gregorian_year);
-
-        $r = self::mod(($julianDate - self::JULIAN_DATE_OFFSET), 1461)
-        $n = self::mod($r, 365) + (365 * self::div($r,1460)) ;
+        $julianDate = gregoriantojd($month, $day, $year);
+        $r = self::mod(($julianDate - self::JULIAN_DATE_OFFSET) ,1461);
+        $n = self::mod($r, 365) + (365 * (self::div($r,1460)) );
 
         // year
-        $ethiopian_year = 4 * self::div(($julianDate - self::JULIAN_DATE_OFFSET) , 1461 ) + self::div($r, 365)  - self::div($r, 1460);
+        $ethiopian_year = 4 *  self::div( ($julianDate - self::JULIAN_DATE_OFFSET), 1461 ) + self::div( $r, 365 ) - self::div( $r, 1460 );
         // month
         $ethiopian_month = self::div($n, 30) + 1;
         // day
@@ -53,16 +51,17 @@ class Ethiopic
         
         return $result;
 
+
     }
 
     //Gregorian from Julian Day
     public function ethiopicToGregorian($ethiopic_year,$ethiopic_month,$ethiopic_day){
 
-        $n = 30 * ($ethiopian_month - 1 ) + ($ethiopian_day - 1); 
+       $n = 30 * ($ethiopic_month - 1 ) + ($ethiopic_day - 1); 
 
-        $j = (self::JULIAN_DATE_OFFSET + 365) + 365 * ($ethiopian_year - 1) + self::div ($ethiopian_year , 4) + $n;
+        $j = (self::JULIAN_DATE_OFFSET + 365) + 365 * ($ethiopic_year - 1) + self::div($ethiopic_year, 4) + $n;
 
-        $result = jdtogregorian($j);
+        $julianDayCount = jdtogregorian($j);
 
         $juilianDate = explode('/', $julianDayCount);
 
@@ -76,12 +75,22 @@ class Ethiopic
     }
 
     //Division Function
-    private function div($first, $second){
-        return floor($first / $second);
+    public function div($first, $second){
+        return ~~($first / $second);
     }
 
     //Modulo Function
-    private function mod($first, $second){
+    public function mod($first, $second){
         return ($first % $second);
     }
+
 }
+
+// $output = new Ethiopic();
+// print_r ($output->gregorianToEthiopic(2019,10,29));
+// echo "<br>";
+// print_r ($output->ethiopicToGregorian(2012,2,18));
+// echo "<br>";
+// print_r ($output->div(2012,18));
+// echo "<br>";
+// print_r ($output->mod(2012,18));
