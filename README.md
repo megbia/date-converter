@@ -4,7 +4,7 @@ The base algorithm is based on Beyene-Kudlek Algorithm.
 
 Base Ethiopic class has 3 methods defined inside megbia namespace, so no need for instantiation.
 
-##Basic Usage
+## Basic Usage
 
 You can convert Gregorian to Ethiopian date from a given Ethiopian Date
 
@@ -18,7 +18,7 @@ You can convert Ethiopian date to gregorian date from a given Ethiopia Date
 \megbia\Ethiopic::ethiopicToGregorian(1999, 1, 1)
 ```
 
-###Methods :
+### Methods :
 
 gregorianToEthiopic($gregorian_year,$gregorian_month,$gregorian_day) : Converts a Gregorian date to ethiopian
 
