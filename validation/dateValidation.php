@@ -2,8 +2,8 @@
 
 namespace megbia\validation;
 
-//use ethiopic.php;
-require_once '/src/ethiopic.php';
+// use ethiopic.php;
+// require_once '/src/ethiopic.php';
 
 /**
  * 
@@ -11,12 +11,12 @@ require_once '/src/ethiopic.php';
 class dateValidation 
 {
 	
-	function __construct($ethiopic_year,$ethiopic_month,$ethiopic_day)
-	{
-		$this->ethiopic_day = $ethiopic_day;
-        $this->ethiopic_month = $ethiopic_month;
-        $this->ethiopic_year = $ethiopic_year;
-	}
+	// function __construct($ethiopic_year,$ethiopic_month,$ethiopic_day)
+	// {
+	// 	$this->ethiopic_day = $ethiopic_day;
+ //        $this->ethiopic_month = $ethiopic_month;
+ //        $this->ethiopic_year = $ethiopic_year;
+	// }
 
     public function isValidEthiopianDate(){
 
