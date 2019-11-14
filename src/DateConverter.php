@@ -14,18 +14,7 @@ class DateConverter
         'January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December',
     ];
 
-    //Checks whether ET Date is valid or not.
-//    public function ethiopicMonthLength($ethiopic_year,$ethiopic_month)
-//    {
-//        if ($ethiopian_month <= 12) return 30;
-//        if ($ethiopian_month == 13) return 5;
-//
-//        if (self::isLeapEthiopianYear($ethiopic_year)) return 30;
-//
-//        return 6;
-//    }
-
-
+    
     /**
      * Converts Gregorian data to Ethiopian calender date
      *
