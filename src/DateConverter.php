@@ -14,7 +14,7 @@ class DateConverter
         'January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December',
     ];
 
-    
+
     /**
      * Converts Gregorian data to Ethiopian calender date
      *
@@ -36,7 +36,7 @@ class DateConverter
         $ethiopian_month = self::div($n, 30) + 1;
         $ethiopian_day = self::mod($n, 30) + 1;
 
-        $result = self::MONTH_NAMES[$ethiopian_month - 1] ." ".$ethiopian_day." ".$ethiopian_year;
+        $result = self::MONTH_NAMES[$ethiopian_month - 1] ." ".$ethiopian_day."፣ ".$ethiopian_year;
         
         return $result;
 
