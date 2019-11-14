@@ -1,6 +1,6 @@
 {
-    "name": "megbia/date-convertor",
-    "description": "Date Convertor",
+    "name": "megbia/date-converter",
+    "description": "Date Converter",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,5 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "Megbia\\": "src/"
+        }
+    }
 }

@@ -1,8 +1,8 @@
-# Date-convertor
+# Date-converter
 PHP date conversion library: Gregorian to Ethiopian and vise-versa.
-The base algorithm is based on Beyene-Kudlek Algorithm.
 
-Base Ethiopic class has 3 methods defined inside megbia namespace, so no need for instantiation.
+Based on Dr. Berhanu Beyene and Dr. Manfred Kudlek JDN formulas (http://www.geez.org/Calendars/)
+
 
 ## Basic Usage
 
