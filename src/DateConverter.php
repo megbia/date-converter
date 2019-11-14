@@ -33,7 +33,7 @@ class DateConverter
      * @return string: Ethiopian calender date
      *
      */
-    public function gregorianToEthiopic($date): string
+    public function gregorianToEthiopian($date)
     {
         $day = date('d', strtotime($date));
         $month = date('m', strtotime($date));
@@ -62,7 +62,7 @@ class DateConverter
      * @return string: Gregorian date
      *
      */
-    public function ethiopicToGregorian($date): string
+    public function ethiopianToGregorian($date)
     {
 
         $day = date('d', strtotime($date));
@@ -95,7 +95,7 @@ class DateConverter
      * @param $second: number
      * @return int
      */
-    public function div($first, $second): integer
+    public function div($first, $second)
     {
         return ~~($first / $second);
     }
@@ -109,7 +109,7 @@ class DateConverter
      * @param $second: number
      * @return int
      */
-    public function mod($first, $second): integer
+    public function mod($first, $second)
     {
         return ($first % $second);
     }
