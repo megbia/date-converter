@@ -1,5 +1,5 @@
 # Date-converter
-PHP date conversion library: Gregorian to Ethiopian and vise-versa.
+PHP date conversion library: Gregorian to Ethiopian.
 
 Based on Dr. Berhanu Beyene and Dr. Manfred Kudlek JDN formulas (http://www.geez.org/Calendars/)
 
@@ -11,9 +11,7 @@ composer require megbia/date-converter
 ## Usage
 
 ```php
-//ጥቅምት 18 2012
-\Megbia\DateConverter::gregorianToEthiopian("2019-10-29 12:00:00");
+use \Megbia\DateConverter;
+$dc = new DateConverter();
+$dc->gregorianToEthiopian("2019-10-29 12:00:00")->format('F j, Y'); //ጥቅምት 18፣ 2012
 
-//October 29 2019
-\Megbia\DateConverter::ethiopianToGregorian("2012-2-18 12:00:00");
-```
