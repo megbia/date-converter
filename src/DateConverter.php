@@ -4,14 +4,37 @@ namespace Megbia;
 
 class DateConverter
 {
-    const JULIAN_DATE_OFFSET = 1723856;
+    protected $julian_date_offset = 1723856;
 
-    const MONTH_NAMES = [
-        'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 'ጥር', 'የካቲት','መጋቢት', 'ሚያዝያ', 'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜን',
+    protected $et_monthNames = [
+        'መስከረም',
+        'ጥቅምት',
+        'ኅዳር',
+        'ታኅሣሥ',
+        'ጥር',
+        'የካቲት',
+        'መጋቢት',
+        'ሚያዝያ',
+        'ግንቦት',
+        'ሰኔ',
+        'ሐምሌ',
+        'ነሐሴ',
+        'ጳጉሜ',
     ];
 
-    const GREGORIAN_MONTH_NAMES = [
-        'January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December',
+    protected $eu_monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
     ];
 
 
@@ -29,15 +52,15 @@ class DateConverter
         $year = date('Y', strtotime($date));
 
         $julianDate = gregoriantojd($month, $day, $year);
-        $r = self::mod(($julianDate - self::JULIAN_DATE_OFFSET) ,1461);
-        $n = self::mod($r, 365) + (365 * (self::div($r,1460)) );
+        $r = $this->mod(($julianDate - $this->julian_date_offset) ,1461);
+        $n = $this->mod($r, 365) + (365 * ($this->div($r,1460)) );
 
-        $ethiopian_year = 4 *  self::div( ($julianDate - self::JULIAN_DATE_OFFSET), 1461 ) + self::div( $r, 365 ) - self::div( $r, 1460 );
-        $ethiopian_month = self::div($n, 30) + 1;
-        $ethiopian_day = self::mod($n, 30) + 1;
+        $ethiopian_year = 4 *  $this->div( ($julianDate - $this->julian_date_offset), 1461 ) + $this->div( $r, 365 ) - $this->div( $r, 1460 );
+        $ethiopian_month = $this->div($n, 30) + 1;
+        $ethiopian_day = $this->mod($n, 30) + 1;
 
-        $result = self::MONTH_NAMES[$ethiopian_month - 1] ." ".$ethiopian_day."፣ ".$ethiopian_year;
-        
+        $result = $this->et_monthNames[$ethiopian_month - 1] ." ".$ethiopian_day."፣ ".$ethiopian_year;
+
         return $result;
 
 
@@ -60,7 +83,7 @@ class DateConverter
 
         $n = 30 * ($month - 1 ) + ($day - 1);
 
-        $j = (self::JULIAN_DATE_OFFSET + 365) + 365 * ($year - 1) + self::div($year, 4) + $n;
+        $j = ($this->julian_date_offset + 365) + 365 * ($year - 1) + $this->div($year, 4) + $n;
 
         $julianDayCount = jdtogregorian($j);
 
@@ -70,12 +93,19 @@ class DateConverter
         $gregorian_day   = $julianDate[1];
         $gregorian_year  = $julianDate[2];
 
-        $result = self::GREGORIAN_MONTH_NAMES[$gregorian_month - 1] ." ".$gregorian_day." ".$gregorian_year;
-
-        return $result;
+        return $this->eu_monthNames[$gregorian_month - 1] ." ".$gregorian_day." ".$gregorian_year;
     }
 
 
+    public function getETMonths()
+    {
+        return $this->et_monthNames;
+    }
+
+    public function getEUMonths()
+    {
+        return $this->eu_monthNames;
+    }
 
     /**
      * Division Function
