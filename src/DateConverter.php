@@ -94,6 +94,11 @@ class DateConverter
         return $this->eu_months;
     }
 
+    public function getETDays()
+    {
+        return $this->et_days;
+    }
+
     /**
      * Division Function
      *
