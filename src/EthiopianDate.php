@@ -12,13 +12,18 @@ class EthiopianDate
 
     public function __construct($params)
     {
-        $this->day = $params['day']; //day of the week (name)
-        $this->month = $params['month']; //month of the year (name)
         $this->year = $params['year'];
-        $this->d = $params['d']; //day of the month (number)
-        $this->dd = sprintf('%02d', $params['d']); //day of the month (01, 02, 11, 12,...)
-        $this->m = $params['m']; //month of the year (number)
-        $this->mm = sprintf('%02d', $params['m']); //month of the year (number)
+        $this->d = $params['day']; //day of the month (number)
+        $this->m = $params['month']; //month of the year (number)
+        $this->dd = sprintf('%02d', $params['day']); //day of the month (01, 02, 11, 12,...)
+        $this->mm = sprintf('%02d', $params['month']); //month of the year (number)
+        $this->month = Constants::ET_MONTHS[$params['month']]; //month of the year (name)
+
+        if(isset($params['day_of_the_week'])) {
+            //day of the week (number, Monday=1)
+            $this->day = Constants::ET_DAYS[$params['day_of_the_week']];
+        }
+
     }
 
     public function format($format_string)
@@ -26,6 +31,12 @@ class EthiopianDate
         switch ($format_string) {
             case 'F': //A full textual representation of a month, such as January or March
                 return $this->month;
+                break;
+            case 'm': //Numeric representation of a month, with leading zeros
+                return $this->mm;
+                break;
+            case 'n': //Numeric representation of a month, without leading zeros
+                return $this->m;
                 break;
             case 'd': //Day of the month, 2 digits with leading zeros
                 return $this->dd;

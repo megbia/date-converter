@@ -4,50 +4,6 @@ namespace Megbia;
 
 class DateConverter
 {
-    protected $julian_date_offset = 1723856;
-
-    protected $et_months = [
-        1 => 'መስከረም',
-        'ጥቅምት',
-        'ኅዳር',
-        'ታኅሣሥ',
-        'ጥር',
-        'የካቲት',
-        'መጋቢት',
-        'ሚያዝያ',
-        'ግንቦት',
-        'ሰኔ',
-        'ሐምሌ',
-        'ነሐሴ',
-        'ጳጉሜ',
-    ];
-
-    protected $eu_months = [
-        1 => 'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-
-    protected $et_days = [
-        1 => 'ሰኞ',
-        'ማክሰኞ',
-        'ረቡዕ',
-        'ሓሙስ',
-        'ዓርብ',
-        'ቅዳሜ',
-        'እሑድ'
-    ];
-
-
     /**
      * Converts Gregorian data to Ethiopian calender date
      *
@@ -55,7 +11,7 @@ class DateConverter
      * @return string: Ethiopian calender date
      *
      */
-    public function gregorianToEthiopian($date)
+    public function toEthiopian($date)
     {
         $day_of_the_week = date('N', strtotime($date)); //1 (for Monday) through 7 (for Sunday)
 
@@ -64,39 +20,54 @@ class DateConverter
         $y = date('Y', strtotime($date));
 
         $julianDate = gregoriantojd($m, $d, $y);
-        $r = $this->mod(($julianDate - $this->julian_date_offset), 1461);
+        $r = $this->mod(($julianDate - Constants::JULIAN_DATE_OFFSET), 1461);
         $n = $this->mod($r, 365) + (365 * ($this->div($r, 1460)));
 
         //int
-        $year = 4 * $this->div(($julianDate - $this->julian_date_offset), 1461) + $this->div($r, 365) - $this->div($r, 1460);
+        $year = 4 * $this->div(($julianDate - Constants::JULIAN_DATE_OFFSET), 1461) + $this->div($r, 365) - $this->div($r, 1460);
         //int
         $month = $this->div($n, 30) + 1;
         //int
         $day = $this->mod($n, 30) + 1;
 
         return new EthiopianDate([
-            'day' => $this->et_days[$day_of_the_week],
-            'month' => $this->et_months[$month],
+            'day_of_the_week' => $day_of_the_week,
+            'month' => $month,
             'year' => $year,
-            'd' => $day,
-            'm' => $month,
+            'day' => $day,
         ]);
     }
 
 
-    public function getETMonths()
+    /**
+     * Converts Ethiopian calendar date to Gregorian date
+     *
+     * @param $date: any valid php date string: e.g. 2012-01-01 12:33:11
+     * @return string: Gregorian date
+     *
+     */
+    public function toGregorian(EthiopianDate $date)
     {
-        return $this->et_months;
-    }
 
-    public function getEUMonths()
-    {
-        return $this->eu_months;
-    }
+        $day = $date->format('j');
+        $month = $date->format('n');
+        $year = $date->format('Y');
 
-    public function getETDays()
-    {
-        return $this->et_days;
+        $n = 30 * ($month - 1 ) + ($day - 1);
+
+        $j = (Constants::JULIAN_DATE_OFFSET + 365) + 365 * ($year - 1) + $this->div($year, 4) + $n;
+
+        $julianDayCount = jdtogregorian($j);
+
+        $julianDate = explode('/', $julianDayCount);
+
+        $month = $julianDate[0];
+        $month = sprintf('%02d', $month);
+        $day   = $julianDate[1];
+        $day = sprintf('%02d', $day);
+        $year  = $julianDate[2];
+
+        return "$year-$month-$day";
     }
 
     /**
